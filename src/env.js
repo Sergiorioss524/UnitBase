@@ -16,12 +16,6 @@ export const env = createEnv({
    */
   server: {
     // Basic validation that only checks if the value exists
-    DATABASE_URL: z.string().optional().refine((val) => {
-      if (process.env.NODE_ENV === 'production') {
-        return val !== undefined && val !== '';
-      }
-      return true;
-    }, "DATABASE_URL is required in production"),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     PORT: z.string().optional(),
     VERCEL_URL: z.string().optional(),
@@ -43,7 +37,6 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
     VERCEL_URL: process.env.VERCEL_URL,
