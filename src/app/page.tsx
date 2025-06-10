@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <HydrateClient>
       <main>
-        <h1>hola</h1>
+        <h1>hola com es viejo</h1>
       </main>
     </HydrateClient>
   );
