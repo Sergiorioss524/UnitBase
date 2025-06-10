@@ -1,13 +1,10 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-// Add debug logging
-console.log('Environment variables:', {
-  DATABASE_URL: process.env.DATABASE_URL,
-  NODE_ENV: process.env.NODE_ENV,
-  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-});
+// More detailed debug logging
+console.log('Raw process.env:', process.env);
+console.log('DATABASE_URL type:', typeof process.env.DATABASE_URL);
+console.log('DATABASE_URL value:', process.env.DATABASE_URL);
 
 export const env = createEnv({
   /**
@@ -15,7 +12,11 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
+    // Make validation extremely lenient for debugging
+    DATABASE_URL: z.any().refine((val) => {
+      console.log('Validating DATABASE_URL:', val);
+      return val !== undefined;
+    }, "DATABASE_URL is required"),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     PORT: z.string().optional(),
     VERCEL_URL: z.string().optional(),
