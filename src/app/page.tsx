@@ -1,15 +1,7 @@
-import Link from "next/link";
-
-import { LatestPost } from "~/app/_components/post";
-import { api, HydrateClient } from "~/trpc/server";
-
-export default async function Home() {
-
+export default function HomePage() {
   return (
-    <HydrateClient>
-      <main>
-        <h1>hola com es viejo</h1>
-      </main>
-    </HydrateClient>
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold">Welcome to UnitBase</h1>
+    </main>
   );
 }
