@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Home, Building2, Users, CreditCard } from "lucide-react";
+import { isHost } from "@/lib/auth";
 
 export default async function DashboardLayout({
   children,
@@ -13,6 +14,12 @@ export default async function DashboardLayout({
   if (!userId) {
     redirect("/sign-in");
   }
+
+  const isUserHost = await isHost();
+  
+  if (!isUserHost) {
+    redirect("/dashboard"); // Redirect non-hosts to home page
+  } 
 
   return (
     <div className="flex min-h-screen">

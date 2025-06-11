@@ -1,4 +1,4 @@
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Geist } from "next/font/google";
 import { type Metadata } from "next";
 
@@ -22,13 +22,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={`${geist.variable}`}>
         <body>
-          <header>
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
+          <header className="fixed top-0 right-0 p-4">
             <SignedIn>
-              <UserButton />
+              <UserButton afterSignOutUrl="/" />
             </SignedIn>
           </header>
           {children}
